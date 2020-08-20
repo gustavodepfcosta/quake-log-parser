@@ -1,7 +1,7 @@
  -- Considerações sobre o desafio -- 
 
 
--> Melhor abordagem: Tratar o log fornecido e dividi-lo de -- (Início de uma partida) InitGame:~(Fim de uma partida) ShutdownGame: -. Feito isso, dividir as etapas de extração de informação por funções e, a cada etapa, aumentar o objeto que, posteriormente, será compilado em um arquivo .json;
+-> Abordagem escolhida : Tratar o log fornecido e dividi-lo de -- (Início de uma partida) InitGame:~(Fim de uma partida) ShutdownGame: -. Feito isso, dividir as etapas de extração de informação por funções e, a cada etapa, aumentar o objeto que, posteriormente, será compilado em um arquivo .json;
 
 -> Entendi que quando a linha ClientConnect aparece, o sistema atribuiu um identificador para o usuário conectado;
 
@@ -9,8 +9,14 @@
 
 -> Para saber o total de kills em uma partida, basta contar o número de vezes que o log traz a informação "(HH:MM) Kill:";
 
+-> Identificada a necessidade de utilização de expressões regulares;
+
 -> Os nicks dos jogadores podem ser compostos por uma ou mais palavras (talvez por números...), por isso, seu match é achado pela ReGex (r"\d{1,3}:\d\d\sClientUserinfoChanged:\s(?P<id>\d+)\sn\\(?P<name>[\d\w\s]+)?"). Com seus grupos de captura;
 
 -> O jeito mais eficiente de contar as kills de um player é através de seu ID, visto que seu nick pode ser alterado em qualquer momento do jogo, comprometendo a confiabilidade do contador. Após a análise do log por um ser humano, pode-se perceber que os três números que aparecem significam: (1º - ID do matador) (2º - ID da vítima) (3º - provavelmente, o ID da arma/item utilizado)... Importante frisar que o ID 1022 é atribuído a suicídios que não são provenientes de danos Splash. Ex: Cair de grande altura ou no vazio;
 
--> O número de total de kills se um jogo pode parecer diferente da somatória dos kills de cada jogador, isso se deve ao fato de ter ocorrido suicídios.
+-> O número de total de kills se um jogo pode parecer diferente da somatória dos kills de cada jogador, isso se deve ao fato de ter ocorrido suicídios;
+
+-> Melhorias... Eliminar uma das iterações à respeito de kills para, na mesma passagem, extrair as informações dos jogadores e a quantidade total de kills de uma partida;
+
+
